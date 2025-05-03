@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">cesizen</string>
+    <string name="title_home">Home</string>
+    <string name="title_articles">Articles</string>
+    <string name="title_connexion">Connexion</string>
+
+
+    <string name="title_presentation_home">"Bienvenue sur Cesizen</string>
+    <string name="text_presentation">Notre plateforme est à votre disposition pour vous apporter des outils pour la gestion de votre stress et de vos émotions au quotidien.
+CESIZen est également une plateforme d’information sur les problématiques de santé mentale. N’hésitez pas à consulter nos articles.</string>
+    <string name="title_section_tools">Les Outils</string>
+
+    <string name="alt_article_button">Livre blanc</string>
+    <string name="btn_title_article">Articles</string>
+    <string name="alt_test_button">Bonhomme avec un point d\'interrogation</string>
+    <string name="btn_title_test">Tests &amp; diagnostics</string>
+
+    <string name="alt_respiration_button">Souffle du vent</string>
+    <string name="btn_title_respiration">Exercice de respiration (à venir)</string>
+
+    <string name="alt_detente_button">Fleur de lotus</string>
+    <string name="btn_title_detente">Activité de détentes (à venir)</string>
+
+    <string name="alt_tracker_button">Fleur</string>
+    <string name="btn_title_tracker">Tracker d\'émotions (à venir)</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
