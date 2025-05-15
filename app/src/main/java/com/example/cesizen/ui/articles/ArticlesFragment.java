@@ -39,7 +39,7 @@ public class ArticlesFragment extends Fragment {
         recyclerView = binding.recyclerViewArticles;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        adapter = new ArticlesAdapter(articleList); // Passe la liste initiale (vide)
+        adapter = new ArticlesAdapter(getContext(), articleList); // Passe la liste initiale (vide)
         recyclerView.setAdapter(adapter);
 
         fetchArticles(); // Appel à l'API
