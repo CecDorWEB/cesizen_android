@@ -10,7 +10,7 @@ public class ConnexionViewModel extends ViewModel {
 
     public ConnexionViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is connexion fragment");
+        mText.setValue("");
     }
 
     public LiveData<String> getText() {

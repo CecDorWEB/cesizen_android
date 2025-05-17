@@ -1,6 +1,8 @@
 package com.example.cesizen.ui.articles;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +83,17 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
                 .placeholder(R.drawable.ic_placeholder_image) // image par défaut si chargement
                 .error(R.drawable.ic_error_image) // image en cas d’erreur
                 .into(holder.headerImage);
+
+        //Au clique sur l'article de son choix
+        holder.itemView.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, ArticleReadActivity.class);
+            intent.putExtra("ARTICLE_ID", article.getId()); // ou autre info utile
+            Log.d("Adapter", "Contexte actuel : " + context.getClass().getName());
+            v.getContext().startActivity(intent);
+            Log.d("Adapter", "ID Article envoyé : " + article.getId());
+        });
+
     }
 
     @Override
