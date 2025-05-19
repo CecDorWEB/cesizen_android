@@ -1,6 +1,11 @@
 package com.example.cesizen;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -25,6 +30,17 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
+        SharedPreferences preferences = getSharedPreferences("user_session", Context.MODE_PRIVATE);
+        boolean isLoggedIn = preferences.getBoolean("is_logged_in", false);
+
+        if (isLoggedIn) {
+            Menu menu = navView.getMenu();
+            MenuItem connexionItem = menu.findItem(R.id.navigation_connexion);
+            if (connexionItem != null) {
+                connexionItem.setTitle("Déconnexion");
+            }
+        }
+
         // Configuration des destinations principales
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_articles, R.id.navigation_connexion)
@@ -38,17 +54,46 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnItemSelectedListener(item -> {
             int currentDestination = navController.getCurrentDestination().getId();
 
-            // Si l'utilisateur clique sur "Home" et qu'il n'y est pas déjà
+            if (item.getItemId() == R.id.navigation_connexion && isLoggedIn) {
+                // Déconnexion
+                preferences.edit().clear().apply();
+
+                // Mettre à jour le label du bouton
+                MenuItem connexionItem = navView.getMenu().findItem(R.id.navigation_connexion);
+                if (connexionItem != null) {
+                    connexionItem.setTitle("Connexion");
+                }
+
+                // Afficher un message
+                Toast.makeText(this, "Déconnecté", Toast.LENGTH_SHORT).show();
+
+                // 🔁 Rediriger vers la page de connexion
+                navController.navigate(R.id.navigation_connexion);
+
+                return true; // Permet la navigation vers ConnexionFragment
+            }
+
+            // Navigation normale
             if (item.getItemId() == R.id.navigation_home) {
                 if (currentDestination != R.id.navigation_home) {
                     navController.popBackStack(R.id.navigation_home, false);
                 }
             } else {
-                // Navigation normale pour les autres boutons
                 navController.navigate(item.getItemId());
             }
+
             return true;
         });
     }
+    public void updateConnexionMenuLabel() {
+        SharedPreferences preferences = getSharedPreferences("user_session", Context.MODE_PRIVATE);
+        boolean isLoggedIn = preferences.getBoolean("is_logged_in", false);
 
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        MenuItem connexionItem = navView.getMenu().findItem(R.id.navigation_connexion);
+
+        if (connexionItem != null) {
+            connexionItem.setTitle(isLoggedIn ? "Déconnexion" : "Connexion");
+        }
+    }
 }

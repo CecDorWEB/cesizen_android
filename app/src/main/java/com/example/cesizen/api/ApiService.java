@@ -1,8 +1,12 @@
 package com.example.cesizen.api;
 
 import java.util.List;
+import java.util.Map;
+
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 import com.example.cesizen.models.ParagraphDTO;
 import com.example.cesizen.models.RessourceDTO;
@@ -20,4 +24,8 @@ public interface ApiService {
     //Récupérer les paragraphes d'un article
     @GET("/ressource/article/{articleId}/paragraph")
     Call<List<ParagraphDTO>> getParagraphsByArticleId(@retrofit2.http.Path("articleId") Long articleId);
+
+    // Connexion utilisateur
+    @POST("/user/login")
+    Call<Map<String, Object>> login(@Body Map<String, String> loginInfo);
 }
