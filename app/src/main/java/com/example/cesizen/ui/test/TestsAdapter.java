@@ -13,14 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import com.example.cesizen.R;
 import com.example.cesizen.models.RessourceDTO;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class TestsAdapter extends RecyclerView.Adapter<TestsAdapter.TestViewHolder> {
 
@@ -75,11 +72,11 @@ public class TestsAdapter extends RecyclerView.Adapter<TestsAdapter.TestViewHold
         //Au clique sur le test de son choix
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
-            Intent intent = new Intent(context, TestStartActivity.class);
-            intent.putExtra("ARTICLE_ID", test.getId()); // ou autre info utile
+            Intent intent = new Intent(context, TestActivity.class);
+            intent.putExtra("TEST_ID", test.getId()); // ou autre info utile
             Log.d("Adapter", "Contexte actuel : " + context.getClass().getName());
             v.getContext().startActivity(intent);
-            Log.d("Adapter", "ID Article envoyé : " + test.getId());
+            Log.d("Adapter", "ID Test envoyé : " + test.getId());
         });
 
     }

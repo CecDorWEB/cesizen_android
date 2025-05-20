@@ -32,7 +32,7 @@ public interface ApiService {
 
     //Récupérer les questions liées au test
     @GET("/ressource/test/{testId}/question")
-    Call<QuestionDTO> getQuestionByTestId(@retrofit2.http.Path("ressourceId") Long ressourceId);
+    Call<List<QuestionDTO>> getQuestionById(@retrofit2.http.Path("testId") Long testId);
 
     // Connexion utilisateur
     @POST("/user/login")
