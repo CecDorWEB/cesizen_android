@@ -95,6 +95,7 @@ public class ArticleReadActivity extends AppCompatActivity {
                     Glide.with(ArticleReadActivity.this)
                             .load(ressource.getHeaderImage())
                             .placeholder(R.drawable.ic_placeholder_image)
+                            .error(R.drawable.ic_error_image) // image en cas d’erreur
                             .into(headerImage);
 
                 } else {

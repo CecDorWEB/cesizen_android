@@ -21,6 +21,11 @@
             android:label="@string/title_article"
             android:theme="@style/Theme.Cesizen" />
         <activity
+            android:name=".ui.test.TestStartActivity"
+            android:exported="false"
+            android:label="@string/title_test"
+            android:theme="@style/Theme.Cesizen" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">

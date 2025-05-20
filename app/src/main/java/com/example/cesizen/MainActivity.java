@@ -3,6 +3,7 @@ package com.example.cesizen;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Configuration des destinations principales
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_articles, R.id.navigation_connexion)
+                R.id.navigation_home, R.id.navigation_articles, R.id.navigation_connexion, R.id.navigation_test)
                 .build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
@@ -53,10 +54,15 @@ public class MainActivity extends AppCompatActivity {
         // Ajout du Listener pour gérer la navigation correctement
         navView.setOnItemSelectedListener(item -> {
             int currentDestination = navController.getCurrentDestination().getId();
+            int itemId = item.getItemId();
 
-            if (item.getItemId() == R.id.navigation_connexion && isLoggedIn) {
+            if (itemId == R.id.navigation_connexion && isLoggedIn) {
                 // Déconnexion
-                preferences.edit().clear().apply();
+                //preferences.edit().clear().apply();
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.putBoolean("is_logged_in", false);
+                editor.apply();
 
                 // Mettre à jour le label du bouton
                 MenuItem connexionItem = navView.getMenu().findItem(R.id.navigation_connexion);

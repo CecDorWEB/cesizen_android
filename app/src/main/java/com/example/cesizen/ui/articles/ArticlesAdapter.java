@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.cesizen.R;
 import com.example.cesizen.models.RessourceDTO;
 
@@ -80,6 +81,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
         // Chargement de l’image avec Glide
         Glide.with(context)
                 .load(article.getHeaderImage()) // URL de l’image
+                //.diskCacheStrategy(DiskCacheStrategy.NONE)
+                //.skipMemoryCache(true)
                 .placeholder(R.drawable.ic_placeholder_image) // image par défaut si chargement
                 .error(R.drawable.ic_error_image) // image en cas d’erreur
                 .into(holder.headerImage);

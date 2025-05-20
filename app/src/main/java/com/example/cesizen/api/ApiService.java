@@ -9,6 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 import com.example.cesizen.models.ParagraphDTO;
+import com.example.cesizen.models.QuestionDTO;
 import com.example.cesizen.models.RessourceDTO;
 
 public interface ApiService {
@@ -24,6 +25,14 @@ public interface ApiService {
     //Récupérer les paragraphes d'un article
     @GET("/ressource/article/{articleId}/paragraph")
     Call<List<ParagraphDTO>> getParagraphsByArticleId(@retrofit2.http.Path("articleId") Long articleId);
+
+    //Récupérer tous les tests
+    @GET("/ressource/test")
+    Call<List<RessourceDTO>> getTests();
+
+    //Récupérer les questions liées au test
+    @GET("/ressource/test/{testId}/question")
+    Call<QuestionDTO> getQuestionByTestId(@retrofit2.http.Path("ressourceId") Long ressourceId);
 
     // Connexion utilisateur
     @POST("/user/login")

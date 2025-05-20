@@ -2,65 +2,80 @@ package com.example.cesizen.ui.test;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.cesizen.R;
+import com.example.cesizen.api.ApiClient;
+import com.example.cesizen.api.ApiService;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TestFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.cesizen.databinding.FragmentTestBinding;
+import com.example.cesizen.models.RessourceDTO;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class TestFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private FragmentTestBinding binding;
+    private RecyclerView recyclerView;
+    private TestsAdapter adapter;
+    private List<RessourceDTO> testList = new ArrayList<>();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
-    public TestFragment() {
-        // Required empty public constructor
+        binding = FragmentTestBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        recyclerView = binding.recyclerViewTests;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        adapter = new TestsAdapter(requireActivity(), testList); // Passe la liste initiale (vide)
+        recyclerView.setAdapter(adapter);
+
+        fetchTests(); // Appel à l'API
+
+        return root;
     }
+    private void fetchTests() {
+        ApiService apiService = ApiClient.getRetrofitInstance().create(ApiService.class);
+        Call<List<RessourceDTO>> call = apiService.getTests();
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TestFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TestFragment newInstance(String param1, String param2) {
-        TestFragment fragment = new TestFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        call.enqueue(new Callback<List<RessourceDTO>>() {
+            @Override
+            public void onResponse(Call<List<RessourceDTO>> call, Response<List<RessourceDTO>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    testList.clear();
+                    testList.addAll(response.body());
+                    adapter.notifyDataSetChanged(); // Notifie l'adapter
+                } else {
+                    Toast.makeText(getContext(), "Erreur de réponse serveur", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RessourceDTO>> call, Throwable t) {
+                Toast.makeText(getContext(), "Erreur : " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_test, container, false);
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
