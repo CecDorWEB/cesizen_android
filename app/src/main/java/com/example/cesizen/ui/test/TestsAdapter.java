@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,13 +33,14 @@ public class TestsAdapter extends RecyclerView.Adapter<TestsAdapter.TestViewHold
     // ViewHolder
     public static class TestViewHolder extends RecyclerView.ViewHolder {
         TextView title, headerIntroduction;
-
+        Button startTestButton;
         ImageView headerImage;
         public TestViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.test_title);
             headerIntroduction = itemView.findViewById(R.id.test_header_introduction);
             headerImage = itemView.findViewById(R.id.test_header_image);
+            startTestButton = itemView.findViewById(R.id.button_startTest);
         }
     }
 
@@ -79,6 +81,10 @@ public class TestsAdapter extends RecyclerView.Adapter<TestsAdapter.TestViewHold
             Log.d("Adapter", "ID Test envoyé : " + test.getId());
         });
 
+        // 👇 On réutilise le clic de la carte
+        holder.startTestButton.setOnClickListener(v -> {
+            holder.itemView.performClick();
+        });
     }
 
     @Override

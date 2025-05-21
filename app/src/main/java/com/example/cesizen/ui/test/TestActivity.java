@@ -46,8 +46,8 @@ public class TestActivity extends AppCompatActivity {
         answerContainer = findViewById(R.id.answer_container);
 
         Intent intent = getIntent();
+        long testId = intent.getLongExtra("TEST_ID", -1);
         if (intent != null && intent.hasExtra("TEST_ID")) {
-            long testId = intent.getLongExtra("TEST_ID", -1);
             Log.d("API", "Je suis dans l'activité ID Test reçu : " + testId);
             if (testId != -1) {
                 Log.d("API", "Avant fetchArticleHeader avec ID : " + testId);
@@ -70,6 +70,7 @@ public class TestActivity extends AppCompatActivity {
                 Intent intentResult = new Intent(TestActivity.this, ResultActivity.class);
                 // Tu peux y passer des données si nécessaire :
                 intentResult.putExtra("score_total", scoreTotal);
+                intentResult.putExtra("ressource_id", testId);
                 startActivity(intentResult);
                 finish();
             } else {

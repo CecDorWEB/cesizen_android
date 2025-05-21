@@ -7,10 +7,12 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 import com.example.cesizen.models.ParagraphDTO;
 import com.example.cesizen.models.QuestionDTO;
 import com.example.cesizen.models.RessourceDTO;
+import com.example.cesizen.models.ResultDTO;
 
 public interface ApiService {
 
@@ -33,6 +35,10 @@ public interface ApiService {
     //Récupérer les questions liées au test
     @GET("/ressource/test/{testId}/question")
     Call<List<QuestionDTO>> getQuestionById(@retrofit2.http.Path("testId") Long testId);
+
+    //Récupérer les textes de résultat en fonction du score de l'utilisateur
+    @GET("/results/search")
+    Call<ResultDTO> getResult(@Query("ressourceId") Long ressourceId, @Query("score") Integer score);
 
     // Connexion utilisateur
     @POST("/user/login")
