@@ -13,16 +13,17 @@
         android:padding="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.077">
 
         <TextView
             android:id="@+id/question_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:padding="16dp"
+            android:layout_marginTop="8dp"
             android:text="Ici la question"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textStyle="bold" />
@@ -35,20 +36,28 @@
             android:text="Ici la règle de la question"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:layout_marginBottom="8dp">
         <LinearLayout
             android:id="@+id/answer_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:paddingLeft="16dp"
             android:paddingRight="16dp" />
+        </ScrollView>
 
         <Button
             android:id="@+id/btn_suivant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="center"
+            android:paddingRight="16dp"
             android:text="Suivant"
             android:visibility="visible" />
 
